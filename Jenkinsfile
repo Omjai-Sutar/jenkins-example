@@ -9,7 +9,9 @@ pipeline{
         }
     }
         stage("Email notification"){
-            emailext body: 'Success!', subject: 'Pipeline status ', to: 'omjaisutar1010@gmail.com'
+            steps{
+              emailext body: 'Success!', subject: 'Pipeline status ', to: 'omjaisutar1010@gmail.com'
+            }
         }
     }
 }
