@@ -9,12 +9,12 @@ pipeline{
             echo"Hello world"
         }
     }
-//         stage("Email notification"){
-//             steps{
-//               email body: 'Success!', subject: 'Pipeline status ', to: 'omjaisutar1010@gmail.com'
-//                // emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "omjaisutar1010@gmail.com", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
-//             }
-//         }
+        stage("Email notification"){
+            steps{
+              email body: 'Success!', subject: 'Pipeline status ', to: 'omjaisutar1010@gmail.com'
+               // emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "omjaisutar1010@gmail.com", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
+            }
+        }
     }
 }
 
