@@ -43,5 +43,16 @@ pipeline{
              
                }
         }
+     stage("Slack notification")
+     {
+      steps{
+       slackSend baseUrl: 'https://hooks.slack.com/services/',
+        channel: '#slack-notification-jenkins',
+        color: 'good',
+        message: 'Welcome to slack notification', 
+        teamDomain: 'jenkinpipelinedemo', 
+        tokenCredentialId: 'slack-demo'
+      }
+     }
     }
 }
