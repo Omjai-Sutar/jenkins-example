@@ -12,7 +12,7 @@ pipeline{
         stage("Email notification"){
             steps{
              emailext(to:'omjaisutar1010@gmail.com',replyTo:'omjaisutar1010@gmail.com', subject:"Email Report from-'${env.JOB_NAME}'",
-                     ,body:readFile("target/surefire-reports/emaillable-report.html"),
+                     ,body:"It Works",
                      mimeType:'text/html');
              
                // emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "omjaisutar1010@gmail.com", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
