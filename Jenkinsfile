@@ -33,7 +33,7 @@ pipeline{
     }
         stage("Email notification"){
             steps{
-             emailext(to:'omjaisutar1010@gmail.com',replyTo:'omjaisutar1010@gmail.com', subject:"Email Report from-'${env.JOB_NAME}'",
+             emailext(to:'tejasi.chavan07@gmail.com',replyTo:'omjaisutar1010@gmail.com', subject:"Email Report from-'${env.JOB_NAME}'",
                       ,body:"${currentBuild.result}:${BUILD_URL}",
                      mimeType:'text/html');
              
