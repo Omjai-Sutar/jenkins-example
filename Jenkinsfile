@@ -50,9 +50,6 @@ pipeline{
         channel: '#slack-notification-jenkins',
         color: 'good',
         message: 'Welcome to slack notification', 
-        attachLog: true, 
-        body: "${currentBuild.result}: ${BUILD_URL}", 
-        compressLog: true,
         teamDomain: 'jenkinpipelinedemo', 
         tokenCredentialId: 'slack-demo'
       }
