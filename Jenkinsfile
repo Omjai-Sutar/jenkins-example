@@ -37,7 +37,7 @@ pipeline{
 //                       ,body:"${currentBuild.result}:${BUILD_URL}",
 //                      mimeType:'text/html');
              emailext attachLog: true, 
-             // body: "${currentBuild.result}: ${BUILD_URL}", 
+             body: "${currentBuild.result}: ${BUILD_URL}", 
               compressLog: true, replyTo: 'omjaisutar1010@gmail.com',
        subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", to: 'omjaisutar1010@gmail.com'
              
