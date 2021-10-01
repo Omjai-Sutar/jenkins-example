@@ -48,7 +48,7 @@ pipeline{
       steps{
        slackSend baseUrl: 'https://hooks.slack.com/services/',
         channel: '#slack-notification-jenkins',
-        color: 'warning',
+        color: 'good',
         message: 'Welcome to slack notification', 
         teamDomain: 'jenkinpipelinedemo', 
         tokenCredentialId: 'slack-demo'
