@@ -27,7 +27,7 @@
 
 
 
-  String  myVariable ;
+ 
 pipeline{
     agent any
 
@@ -52,7 +52,7 @@ pipeline{
      {
       steps{  
        
-   myVariable=${currentBuild.result};
+  
        
         slackSend baseUrl: 'https://hooks.slack.com/services/',
         channel: '#slack-notification-jenkins',
@@ -61,8 +61,7 @@ pipeline{
         teamDomain: 'jenkinpipelinedemo', 
         tokenCredentialId: 'slack-demo'
        
-       echo "My variable is ${myVariable}"
-      }
+     }
      }
     }
 }
