@@ -27,7 +27,7 @@
 
 
 
-  String  myVariable = "currentBuild.result"
+  String  myVariable ;
 pipeline{
     agent any
 
@@ -51,7 +51,8 @@ pipeline{
      stage("Slack notification")
      {
       steps{  
-   
+       
+   myVariable=${currentBuild.result};
        
         slackSend baseUrl: 'https://hooks.slack.com/services/',
         channel: '#slack-notification-jenkins',
