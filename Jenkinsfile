@@ -72,7 +72,7 @@
 
 
 
-
+  String  myVariable = "foo"
 pipeline{
     agent any
 
@@ -92,7 +92,7 @@ pipeline{
              
                }
         }
-        String  myVariable = "foo"
+      
      stage("Slack notification")
      {
       steps{  
