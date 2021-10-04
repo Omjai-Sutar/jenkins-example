@@ -91,36 +91,39 @@
 
 
 
-def notifySlack(String buildStatus = 'STARTED') {
-    // Build status of null means success.
-    buildStatus = buildStatus ?: 'SUCCESS'
-
-    def color
-
-    if (buildStatus == 'STARTED') {
-        color = '#D4DADF'
-    } else if (buildStatus == 'SUCCESS') {
-        color = '#BDFFC3'
-    } else if (buildStatus == 'UNSTABLE') {
-        color = '#FFFE89'
-    } else {
-        color = '#FF9FA1'
-    }
-
-    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:\n${env.BUILD_URL}"
-
-    slackSend(color: color, message: msg)
-}
-
-node {
-    try {
-        notifySlack()
-
-        // Existing build steps.
-    } catch (e) {
-        currentBuild.result = 'FAILURE'
-        throw e
-    } finally {
-        notifySlack(currentBuild.result)
-    }
-}
+pipeline {  
+     agent any  
+     stages {  
+         stage('Test') {  
+             steps {  
+                 sh 'echo "Fail!"; exit 1'  
+             }  
+         }  
+     }  
+     post {  
+         always {  
+             echo 'This will always run'  
+         }  
+         success {  
+             echo 'This will run only if successful'  
+         }  
+         failure {  
+             echo 'This will run only if fail'
+          
+           slackSend baseUrl: 'https://hooks.slack.com/services/',
+         channel: '#slack-notification-jenkins',
+       color: 'good',
+       message: 'Welcome to slack notification', 
+         teamDomain: 'jenkinpipelinedemo', 
+         tokenCredentialId: 'slack-demo'
+          
+			}  
+         unstable {  
+             echo 'This will run only if the run was marked as unstable'  
+         }  
+         changed {  
+             echo 'This will run only if the state of the Pipeline has changed'  
+             echo 'For example, if the Pipeline was previously failing but is now successful'  
+         }  
+     }  
+ }
