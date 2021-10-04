@@ -96,7 +96,7 @@ pipeline{
      {
       steps{
       
-       myVariable = "foo"
+      String  myVariable = "foo"
        
        slackSend baseUrl: 'https://hooks.slack.com/services/',
         channel: '#slack-notification-jenkins',
