@@ -28,65 +28,94 @@
 
 
  
-pipeline{
-    agent any
+// pipeline{
+//     agent any
 
  
- try {
+//  try {
  
-
-   
- 
-    stages{
-     stage("Hello Demo"){
-        steps{
-            echo"Hello world"
-        }
-    }
-        stage("Email notification"){
-            steps{
-             emailext attachLog: true, 
-             body: "${currentBuild.result}: ${BUILD_URL}", 
-             compressLog: true, replyTo: 'omjaisutar1010@gmail.com',
-             subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
-             to: 'omjaisutar1010@gmail.com'
+//     stages{
+//      stage("Hello Demo"){
+//         steps{
+//             echo"Hello world"
+//         }
+//     }
+//         stage("Email notification"){
+//             steps{
+//              emailext attachLog: true, 
+//              body: "${currentBuild.result}: ${BUILD_URL}", 
+//              compressLog: true, replyTo: 'omjaisutar1010@gmail.com',
+//              subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
+//              to: 'omjaisutar1010@gmail.com'
              
-               }
-        }
+//                }
+//         }
       
-     stage("Slack notification")
-     {
-      steps{    
+//      stage("Slack notification")
+//      {
+//       steps{    
   
        
-        slackSend baseUrl: 'https://hooks.slack.com/services/',
-        channel: '#slack-notification-jenkins',
-        color: 'good',
-        message: 'Welcome to slack notification', 
-        teamDomain: 'jenkinpipelinedemo', 
-        tokenCredentialId: 'slack-demo'
+//         slackSend baseUrl: 'https://hooks.slack.com/services/',
+//         channel: '#slack-notification-jenkins',
+//         color: 'good',
+//         message: 'Welcome to slack notification', 
+//         teamDomain: 'jenkinpipelinedemo', 
+//         tokenCredentialId: 'slack-demo'
        
-     }
-     }
+//      }
+//      }
      
-    }
-  echo 'This will run only if successful'
-            currentBuild.result = 'SUCCESS'
-   } 
- catch (e) {
-        echo 'This will run only if failed'
+//     }
+//   echo 'This will run only if successful'
+//             currentBuild.result = 'SUCCESS'
+//    } 
+//  catch (e) {
+//         echo 'This will run only if failed'
 
-        currentBuild.result = 'FAILURE'
+//         currentBuild.result = 'FAILURE'
  
-        throw e
-    } finally {
+//         throw e
+//     } finally {
 
-    if ( "${currentBuild.result}" == 'FAILURE' ) {
-        echo 'JOB failed'
-        emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "${env.gitlabUserEmail}", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
-        }
+//     if ( "${currentBuild.result}" == 'FAILURE' ) {
+//         echo 'JOB failed'
+//         emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "${env.gitlabUserEmail}", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
+//         }
 
-        }
-}
+//         }
+// }
 
 
+
+
+
+
+pipeline {  
+     agent any  
+     stages {  
+         stage('Test') {  
+             steps {  
+                 sh 'echo "Fail!"; exit 1'  
+             }  
+         }  
+     }  
+     post {  
+         always {  
+             echo 'This will always run'  
+         }  
+         success {  
+             echo 'This will run only if successful'  
+         }  
+         failure {  
+             echo 'This will run only if fail'  
+			}  
+         unstable {  
+             echo 'This will run only if the run was marked as unstable'  
+         }  
+         changed {  
+             echo 'This will run only if the state of the Pipeline has changed'  
+             echo 'For example, if the Pipeline was previously failing but is now successful'  
+         }  
+     }  
+ }
