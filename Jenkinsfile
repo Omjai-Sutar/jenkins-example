@@ -94,11 +94,11 @@
 pipeline {  
      agent any  
      stages {  
-         stage('Test') {  
-             steps {  
-                 sh 'echo "Fail!"; exit 1'  
-             }  
-         }  
+         stage("Hello Demo"){
+         steps{
+            echo"Hello world"
+        }
+    }
      }  
      post {  
          always {  
@@ -106,6 +106,12 @@ pipeline {
          }  
          success {  
              echo 'This will run only if successful'  
+		 slackSend baseUrl: 'https://hooks.slack.com/services/',
+         channel: '#slack-notification-jenkins',
+       color: 'good',
+       message: 'success block..... to slack notification', 
+         teamDomain: 'jenkinpipelinedemo', 
+         tokenCredentialId: 'slack-demo'
          }  
          failure {  
              echo 'This will run only if fail'
