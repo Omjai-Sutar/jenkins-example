@@ -31,6 +31,12 @@
 pipeline{
     agent any
 
+ 
+ try {
+ 
+
+   
+ 
     stages{
      stage("Hello Demo"){
         steps{
@@ -50,8 +56,7 @@ pipeline{
       
      stage("Slack notification")
      {
-      steps{  
-       
+      steps{    
   
        
         slackSend baseUrl: 'https://hooks.slack.com/services/',
@@ -63,7 +68,25 @@ pipeline{
        
      }
      }
+     
     }
+  echo 'This will run only if successful'
+            currentBuild.result = 'SUCCESS'
+   } 
+ catch (e) {
+        echo 'This will run only if failed'
+
+        currentBuild.result = 'FAILURE'
+ 
+        throw e
+    } finally {
+
+    if ( "${currentBuild.result}" == 'FAILURE' ) {
+        echo 'JOB failed'
+        emailext attachLog: true,body: 'Build JOB has failed', recipientProviders: [[$class: 'DevelopersRecipientProvider'],[$class: 'RequesterRecipientProvider']], to: "${env.gitlabUserEmail}", subject: "Job '${env.JOB_NAME}'- (${version}) has failed"
+        }
+
+        }
 }
 
 
