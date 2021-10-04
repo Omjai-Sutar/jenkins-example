@@ -47,14 +47,14 @@ pipeline{
      stage("Slack notification")
      {
       steps{
-       def myVariable = "currentBuild.result"
+      
        slackSend baseUrl: 'https://hooks.slack.com/services/',
         channel: '#slack-notification-jenkins',
         color: 'good',
         message: 'Welcome to slack notification', 
         teamDomain: 'jenkinpipelinedemo', 
         tokenCredentialId: 'slack-demo'
-       echo "My variable is ${myVariable}"
+      
       }
      }
     }
