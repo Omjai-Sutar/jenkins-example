@@ -109,8 +109,8 @@ pipeline {
 		 slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'good',
-       message: 'success block..... to slack notification 
-			 subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}"',
+       message: 'success block..... to slack notification ',
+			 subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
          }  
