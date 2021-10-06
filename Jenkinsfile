@@ -119,7 +119,7 @@ pipeline {
 		 slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'good',
-       message: "success block.....  subject: "Build Notification: ${JOB_NAME}-Build: ${BUILD_NUMBER} ${currentBuild.result}",
+       message: "Buils success ..... ",
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
          }  
@@ -129,7 +129,7 @@ pipeline {
            slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'danger',
-       message: "Failure block.....subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
+       message: "Build Failure .....", 
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
           
