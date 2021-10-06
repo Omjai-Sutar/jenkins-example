@@ -99,6 +99,16 @@ pipeline {
             echo"Hello world"
         }
     }
+	     stage("Email notification"){
+            steps{
+            emailext attachLog: true, 
+             body: "${currentBuild.result}: ${BUILD_URL}", 
+             compressLog: true, replyTo: 'omjaisutar1010@gmail.com',
+             subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
+             to: 'omjaisutar1010@gmail.com'
+             
+              }
+        }
      }  
      post {  
          always {  
@@ -109,8 +119,7 @@ pipeline {
 		 slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'good',
-       message: 'success block..... to slack notification ',
-			 subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
+       message: "success block.....  subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
          }  
@@ -120,7 +129,7 @@ pipeline {
            slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'danger',
-       message: 'Failure block..... to slack notification', 
+       message: "Failure block.....subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
           
