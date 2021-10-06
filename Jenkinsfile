@@ -104,7 +104,7 @@ pipeline {
             emailext attachLog: true, 
              body: "${currentBuild.result}: ${BUILD_URL}", 
              compressLog: true, replyTo: 'omjaisutar1010@gmail.com',
-             subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}", 
+             subject: "Build Notification: ${JOB_NAME}-Build: ${BUILD_NUMBER} ${currentBuild.result}", 
              to: 'omjaisutar1010@gmail.com'
              
               }
@@ -119,7 +119,7 @@ pipeline {
 		 slackSend baseUrl: 'https://hooks.slack.com/services/',
          channel: '#slack-notification-jenkins',
        color: 'good',
-       message: "success block.....  subject: "Build Notification: ${JOB_NAME}-Build# ${BUILD_NUMBER} ${currentBuild.result}",
+       message: "success block.....  subject: "Build Notification: ${JOB_NAME}-Build: ${BUILD_NUMBER} ${currentBuild.result}",
          teamDomain: 'jenkinpipelinedemo', 
          tokenCredentialId: 'slack-demo'
          }  
